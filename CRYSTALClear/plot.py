@@ -62,7 +62,7 @@ def plot_dens_ECHG(obj_echg, levels=150, xticks=5,
     else:
         min_data = cmap_min
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(dpi=300)
     im = ax.contourf(mesh_x, mesh_y, dens, levels, cmap='gnuplot')
     divider = make_axes_locatable(ax)
     im.set_clim(vmin=min_data, vmax=max_data)
