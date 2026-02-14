@@ -13,13 +13,14 @@ Functions to visualize physical properties computed with CRYSTAL .
 # ------------------------------------ECHG------------------------------------#
 
 
-def plot_dens_ECHG(obj_echg, levels=150, xticks=5,
+def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
                    yticks=5, cmap_max=None, cmap_min=None):
     """
     Plots the 2D ECHG density map from a fort.25 file.
 
     Args: 
         obj_echg (crystal_io.Properties_output): Properties output object.
+        map_type: 'charge' or 'spin'
         levels (int or array-like, optional): Determines the number and positions of the contour lines/regions. Default is 150.
         xticks (int, optional): Number of ticks in the x direction. Default is 5.
         yticks (int, optional): Number of ticks in the y direction. Default is 5.
@@ -50,7 +51,14 @@ def plot_dens_ECHG(obj_echg, levels=150, xticks=5,
             mesh_x[i, j] = ((lenght_cb / points_cb) * j) + \
                 (((lenght_ab / points_ab) * i) * obj_echg.cosxy)
 
-    dens = obj_echg.density_map * (1.88973**2)  # Bohr to Angstrom conversion
+    if map_type == 'charge':
+        dens = obj_echg.density_map * (1.88973**2)  # Bohr to Angstrom conversion
+        cmap_color = 'gnuplot'
+    elif map_type == 'spin':
+        dens = obj_echg.spin_density_map * (1.88973**2)  # Bohr to Angstrom conversion
+        cmap_color = 'PiYG'
+    else:
+        print('spin or charge should be selected')
 
     if cmap_max is None:
         max_data = np.amax(dens)
@@ -77,6 +85,7 @@ def plot_dens_ECHG(obj_echg, levels=150, xticks=5,
     ax.set_ylim(0, np.amax(mesh_y) * np.sqrt(1 - (obj_echg.cosxy**2)))
 
     return fig, ax
+
 
 # ----------------------------------SPIN CURRENTS------------------------------#
 
