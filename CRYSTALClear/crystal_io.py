@@ -3795,6 +3795,8 @@ class Properties_output:
                            data[2][12:24],
                            data[2][24:36]], dtype=float)
 
+        number_atoms = int(data[2].split()[-2])
+
         self.density_map = np.zeros((self.nrow, self.ncol), dtype=float)
 
         number_points = self.nrow * self.ncol
@@ -3814,6 +3816,25 @@ class Properties_output:
             for i in range(self.nrow - 1, -1, -1):
                 self.density_map[i, j] = density_temp[k]
                 k += 1
+
+######################## added by BMTCP ###############################
+        
+        if len(self.data) > lines + number_atoms + 6: ## test if we have spin data
+            
+            self.spin_density_map = np.zeros((self.nrow,self.ncol), dtype=float)
+            spin_density_temp = np.zeros(number_points, dtype=float)
+
+            j = 0
+            for i in range(0, lines):
+                for k in range(0, len(data[number_atoms + lines + 9 + i].split())):
+                    spin_density_temp[j] = data[number_atoms + lines + 9 + i].split()[k]
+                    j += 1
+
+            k = 0
+            for j in range(0, self.ncol):
+                for i in range(self.nrow - 1, -1, -1):
+                    self.spin_density_map[i, j] = spin_density_temp[k]
+                    k += 1
 
         return self
 
