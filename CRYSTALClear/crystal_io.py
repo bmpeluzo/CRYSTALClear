@@ -3826,8 +3826,8 @@ class Properties_output:
 
             j = 0
             for i in range(0, lines):
-                for k in range(0, len(data[number_atoms + lines + 9 + i].split())):
-                    spin_density_temp[j] = data[number_atoms + lines + 9 + i].split()[k]
+                for k in range(0,len(data[number_atoms + lines + 9 + i])//12):
+                    spin_density_temp[j] = float(data[number_atoms + lines + 9 + i][k*12:(k+1)*12])
                     j += 1
 
             k = 0
