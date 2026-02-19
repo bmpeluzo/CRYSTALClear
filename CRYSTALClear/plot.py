@@ -32,6 +32,7 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
         matplotlib.axes.Axes
     """
     import matplotlib.pyplot as plt
+    import matplotlib.ticker as mticker
     import numpy as np
     from mpl_toolkits.axes_grid1 import make_axes_locatable
 
@@ -69,8 +70,9 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
         min_data = np.amin(dens)
     else:
         min_data = cmap_min
-
+    
     fig, ax = plt.subplots(dpi=300)
+    mticker.Locator.MAXTICKS = 5000
     im = ax.contourf(mesh_x, mesh_y, dens, levels, cmap='gnuplot')
     divider = make_axes_locatable(ax)
     im.set_clim(vmin=min_data, vmax=max_data)
