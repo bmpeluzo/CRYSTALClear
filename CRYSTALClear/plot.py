@@ -54,7 +54,7 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
 
     if map_type == 'charge':
         dens = obj_echg.density_map * (1.88973**2)  # Bohr to Angstrom conversion
-        cmap_color = 'gnuplot'
+        cmap_color = 'gnuplot2'
     elif map_type == 'spin':
         dens = obj_echg.spin_density_map * (1.88973**2)  # Bohr to Angstrom conversion
         cmap_color = 'PiYG'
@@ -73,7 +73,9 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
     
     fig, ax = plt.subplots(dpi=300)
     mticker.Locator.MAXTICKS = 5000
-    im = ax.contourf(mesh_x, mesh_y, dens, levels, cmap='gnuplot')
+    if map_type == 'spin':
+        im2 = ax.contour(mesh_x, mesh_y, dens, levels=100, linewidths=0.25)
+    im = ax.contourf(mesh_x, mesh_y, dens, levels, cmap=cmap_color)
     divider = make_axes_locatable(ax)
     im.set_clim(vmin=min_data, vmax=max_data)
     cax = divider.append_axes('right', size='5%', pad=0.05)
