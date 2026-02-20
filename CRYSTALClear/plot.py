@@ -70,7 +70,7 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
         min_data = np.amin(dens)
     else:
         min_data = cmap_min
-    
+   
     fig, ax = plt.subplots(dpi=300)
     mticker.Locator.MAXTICKS = 5000
     if map_type == 'spin':
