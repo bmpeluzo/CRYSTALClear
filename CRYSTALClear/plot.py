@@ -14,7 +14,7 @@ Functions to visualize physical properties computed with CRYSTAL .
 
 
 def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
-                   yticks=5, cmap_max=None, cmap_min=None):
+                   yticks=5, cmap_max=None, cmap_min=None, clines=None):
     """
     Plots the 2D ECHG density map from a fort.25 file.
 
@@ -26,6 +26,7 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
         yticks (int, optional): Number of ticks in the y direction. Default is 5.
         cmap_max(float, optional): Maximum value used for the colormap. Default is None.
         cmap_min(float, optional): Minimun value used for the colormap. Default is None.
+        clines (color, optional): Color of the contour lines
 
    Returns:
         matplotlib.figure.Figure
@@ -54,7 +55,7 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
 
     if map_type == 'charge':
         dens = obj_echg.density_map * (1.88973**2)  # Bohr to Angstrom conversion
-        cmap_color = 'gnuplot2'
+        cmap_color = 'plasma'
     elif map_type == 'spin':
         dens = obj_echg.spin_density_map * (1.88973**2)  # Bohr to Angstrom conversion
         cmap_color = 'PiYG'
@@ -73,8 +74,9 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
    
     fig, ax = plt.subplots(dpi=300)
     mticker.Locator.MAXTICKS = 5000
-    if map_type == 'spin':
-        im2 = ax.contour(mesh_x, mesh_y, dens, levels=100, linewidths=0.25)
+    if clines != None:
+        c_lvl = int(levels/100)
+        im2 = ax.contour(mesh_x, mesh_y, dens, levels=c_lvl, colors=clines, linewidths=0.1)
     im = ax.contourf(mesh_x, mesh_y, dens, levels, cmap=cmap_color)
     divider = make_axes_locatable(ax)
     im.set_clim(vmin=min_data, vmax=max_data)
