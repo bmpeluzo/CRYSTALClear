@@ -75,9 +75,9 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
     fig, ax = plt.subplots(dpi=300)
     mticker.Locator.MAXTICKS = 5000
     if clines != None:
-        c_lvl = int(levels/100)
+        c_lvl = int(levels/500)
         im2 = ax.contour(mesh_x, mesh_y, dens, levels=c_lvl, colors=clines, linewidths=0.1)
-    im = ax.contourf(mesh_x, mesh_y, dens, levels, cmap=cmap_color)
+    im = ax.contourf(mesh_x, mesh_y, dens, levels, cmap=cmap_color, alpha=0.75)
     divider = make_axes_locatable(ax)
     im.set_clim(vmin=min_data, vmax=max_data)
     cax = divider.append_axes('right', size='5%', pad=0.05)
