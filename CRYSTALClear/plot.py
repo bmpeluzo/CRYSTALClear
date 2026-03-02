@@ -72,7 +72,7 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
     else:
         min_data = cmap_min
    
-    fig, ax = plt.subplots(dpi=300)
+    fig, ax = plt.subplots(dpi=300,figsize=(8,7),layout='tight')
     mticker.Locator.MAXTICKS = 5000
     if clines != None:
         c_lvl = int(levels/500)
