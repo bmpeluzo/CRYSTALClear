@@ -8,12 +8,20 @@ symm_op_dict = {50: ["\'x, y, z\'\n",
                 "\'-x+1/2, -y+1/2, -z\'\n",
                 "\'x+1/2, y+1/2, -z\'\n",
                 "\'x+1/2, -y+1/2, z\'\n",
-                "\'-x+1/2, y+1/2, z\'\n"]
-}
+                "\'-x+1/2, y+1/2, z\'\n"],
+                83: ["\'x, y, z\'\n",
+                    "\'-x, -y, -z\'\n",
+                    "\'-x, -y, z\'\n",
+                    "\'x, y, -z\'\n",
+                    "\'-y, x, z\'\n",
+                    "\'y, -x, -z\'\n",
+                    "\'y, -x, z\'\n",
+                    "\'-y, x, -z\'\n"]
+                }
 
 
 ########################## dictionary with symmetry names - following CRYSTAL convention ##################################
-symm_num_dict = {50: 'P b a n'}
+symm_num_dict = {50: 'P b a n', 83: 'P 4/m'}
 
 
 def get_cif_opt(file,n_symm):         
