@@ -59,6 +59,8 @@ def get_cif_opt(file,n_symm):
                     break
             break
 
+
+  ###### colocar as operacoes de simetria em um arquivo separado ####
     corr_cif = open(file.split(".")[0]+"_correct.cif", 'w')
     corr_cif.writelines(f_list_new)
     corr_cif.close()
