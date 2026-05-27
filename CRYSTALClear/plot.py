@@ -55,7 +55,7 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
 
     if map_type == 'charge':
         dens = obj_echg.density_map * (1.88973**2)  # Bohr to Angstrom conversion
-        cmap_color = 'plasma'
+        cmap_color = 'CMRmap_r'
     elif map_type == 'spin':
         dens = obj_echg.spin_density_map * (1.88973**2)  # Bohr to Angstrom conversion
         cmap_color = 'PiYG'
