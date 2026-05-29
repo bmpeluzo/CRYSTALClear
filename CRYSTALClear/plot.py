@@ -55,7 +55,7 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
 
     if map_type == 'charge':
         dens = obj_echg.density_map * (1.88973**2)  # Bohr to Angstrom conversion
-        cmap_color = 'CMRmap_r'
+        cmap_color = 'copper_r'
     elif map_type == 'spin':
         dens = obj_echg.spin_density_map * (1.88973**2)  # Bohr to Angstrom conversion
         cmap_color = 'PiYG'
@@ -74,10 +74,12 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
    
     fig, ax = plt.subplots(dpi=300,figsize=(8,7),layout='tight')
     mticker.Locator.MAXTICKS = 5000
-    if clines != None:
-        c_lvl = int(levels/500)
-        im2 = ax.contour(mesh_x, mesh_y, dens, levels=c_lvl, colors=clines, linewidths=0.1)
     im = ax.contourf(mesh_x, mesh_y, dens, levels, cmap=cmap_color, alpha=0.75)
+    c_lvl = int(levels/50)
+    if clines != None:
+        im2 = ax.contour(mesh_x, mesh_y, dens, levels=c_lvl, colors=clines, linewidths=0.1)
+    else:
+        im2 = ax.contour(mesh_x, mesh_y, dens, levels=c_lvl, cmap='jet_r', linewidths=0.1)
     divider = make_axes_locatable(ax)
     im.set_clim(vmin=min_data, vmax=max_data)
     cax = divider.append_axes('right', size='5%', pad=0.05)
@@ -85,12 +87,16 @@ def plot_dens_ECHG(obj_echg, map_type, levels=150, xticks=5,
     cbar.ax.set_ylim(min_data,max_data)
     cbar.ax.set_yticks(np.linspace(min_data, max_data, 10).tolist())
     ax.set_xlabel('$\AA$')
-    ax.set_xticks(np.linspace(0, np.amax(mesh_x), xticks).tolist())#lenght_cb, xticks).tolist())
-    ax.set_yticks(np.linspace(0, np.amax(mesh_y) * np.sqrt(1 - (obj_echg.cosxy**2)), yticks).tolist())#lenght_ab, yticks).tolist())
+    #ax.set_xticks(np.linspace(0, np.amax(mesh_x), xticks).tolist())#lenght_cb, xticks).tolist())
+    #ax.set_yticks(np.linspace(0, np.amax(mesh_y) * np.sqrt(1 - (obj_echg.cosxy**2)), yticks).tolist())#lenght_ab, yticks).tolist())
+    ax.set_xticks([1,2,3,4,5])
+    ax.set_yticks([1,2,3,4,5])
     ax.set_ylabel('$\AA$')
     ax.set_aspect(1.0)
-    ax.set_xlim(np.amin(mesh_x), np.amax(mesh_x))
-    ax.set_ylim(0, np.amax(mesh_y) * np.sqrt(1 - (obj_echg.cosxy**2)))
+    #ax.set_xlim(np.amin(mesh_x), np.amax(mesh_x))
+    #ax.set_ylim(0, np.amax(mesh_y) * np.sqrt(1 - (obj_echg.cosxy**2)))
+    ax.set_xlim(1.,5)
+    ax.set_ylim(1.,5)
 
     return fig, ax
 
