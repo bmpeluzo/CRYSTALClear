@@ -335,14 +335,14 @@ def plot_single_cry_bands(bands, linestl, linewidth, color, figsize, sharex, sha
 
         elif bands.spin == 2:
             if count1 == count2:
-                ax.plot(dx, pltband[i, :, 0], color='red',
+                ax.plot(dx, pltband[i, :, 0], color='#FF6727',
                         linestyle=linestl, linewidth=linewidth, label='Alpha')
-                ax.plot(dx, pltband[i, :, 1], color='black',
+                ax.plot(dx, pltband[i, :, 1], color=(108/255,102/255,196/255),
                         linestyle=linestl, linewidth=linewidth, label='Beta')
             else:
-                ax.plot(dx, pltband[i, :, 0], color='red',
+                ax.plot(dx, pltband[i, :, 0], color='#FF6727',
                         linestyle=linestl, linewidth=linewidth)
-                ax.plot(dx, pltband[i, :, 1], color='black',
+                ax.plot(dx, pltband[i, :, 1], color=(108/255,102/255,196/255),
                         linestyle=linestl, linewidth=linewidth)
             count1 += 1
 
@@ -725,6 +725,7 @@ def plot_cry_doss(doss, color, fermi, overlap, labels, figsize, linestl,
             dx = doss.doss[:, 0]
         elif doss.spin == 2:
             dx = doss.doss[:, 0, :]
+            print(dx)
             dx_alpha = doss.doss[:, 0, 0]
             dx_beta = doss.doss[:, 0, 1]
 
