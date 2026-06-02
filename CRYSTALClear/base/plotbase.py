@@ -326,28 +326,42 @@ def plot_single_cry_bands(bands, linestl, linewidth, color, figsize, sharex, sha
     else:
         fig, ax = plt.subplots(
             nrows=1, ncols=1, sharex=sharex, sharey=sharey)
+    
+    #get lumo and bandgap
+    for i in range(no_bands):
+        if bands.spin == 1:
+            if np.min(pltband[i, :]) > 0:
+                lumo = np.min(pltband[i,:])
+                k_lumo = np.where(pltband[i, :] == lumo)[0][0]
+                break
+        elif bands.spin == 2:
+            if np.min(pltband[i, :, :]) > 0:
+                lumo = np.min(pltband[i, :, :])
+                k_lumo = np.where(pltband[i, :, :] == lumo)[0][0]
+                break
 
     for i in range(no_bands):
 
         if bands.spin == 1:
             ax.plot(dx, pltband[i, :], color=color,
                     linestyle=linestl, linewidth=linewidth)
-
         elif bands.spin == 2:
             if count1 == count2:
                 ax.plot(dx, pltband[i, :, 0], color='#FF6727',
-                        linestyle=linestl, linewidth=linewidth, label='Alpha')
+                    linestyle=linestl, linewidth=linewidth, label='Alpha')
                 ax.plot(dx, pltband[i, :, 1], color=(108/255,102/255,196/255),
-                        linestyle=linestl, linewidth=linewidth, label='Beta')
+                    linestyle=linestl, linewidth=linewidth, label='Beta')
             else:
                 ax.plot(dx, pltband[i, :, 0], color='#FF6727',
-                        linestyle=linestl, linewidth=linewidth)
+                    linestyle=linestl, linewidth=linewidth)
                 ax.plot(dx, pltband[i, :, 1], color=(108/255,102/255,196/255),
-                        linestyle=linestl, linewidth=linewidth)
+                    linestyle=linestl, linewidth=linewidth)
             count1 += 1
-
+    
+    ax.vlines(x=dx[k_lumo], ymin=0, ymax=lumo, color='#28ABCA',linewidth=2.)
+    ax.text(x=dx[k_lumo]*1.025,y=lumo/2,s='%.3f eV'%lumo,color='black')
+    
     return ymin, ymax, xmin, xmax, fig, ax
-
 
 def plot_multi_cry_bands(bands,  not_scaled, linestl, linewidth, color,
                          labels, figsize, sharex, sharey):
