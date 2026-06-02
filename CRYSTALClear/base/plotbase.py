@@ -322,10 +322,10 @@ def plot_single_cry_bands(bands, linestl, linewidth, color, figsize, sharex, sha
     # band plot
     if figsize is not None:
         fig, ax = plt.subplots(
-            nrows=1, ncols=1, sharex=sharex, sharey=sharey, figsize=figsize)
+            nrows=1, ncols=1, sharex=sharex, sharey=sharey, figsize=figsize, dpi=300)
     else:
         fig, ax = plt.subplots(
-            nrows=1, ncols=1, sharex=sharex, sharey=sharey)
+            nrows=1, ncols=1, sharex=sharex, sharey=sharey, dpi=300)
     
     #get lumo and bandgap
     for i in range(no_bands):
@@ -1157,11 +1157,12 @@ def plot_cry_es(bands, doss, k_labels, color_bd, color_doss, fermi, energy_range
                            linestyle='--', linewidth=linewidth, label='Beta')
             else:
                 ax[0].plot(dx_bd, pltband[i, :, 0], color=color_bd,
-                           linestyle='-', linewidth=linewidth)
+                           linestyle='-', linewidth=linewidth )
                 ax[0].plot(dx_bd, pltband[i, :, 1], color=color_bd,
                            linestyle='--', linewidth=linewidth)
-
         count1 += 1
+    if legend:
+        ax[0].legend()
 
     # Definition of dx for the doss plot
     if doss.spin == 1:
@@ -1215,7 +1216,7 @@ def plot_cry_es(bands, doss, k_labels, color_bd, color_doss, fermi, energy_range
                     ax[1].plot(doss.doss[:, projection, 0], dx_alpha, color=color_doss[projection-1],
                                label=labels[projection-1], linestyle='-', linewidth=linewidth)
                     ax[1].plot(doss.doss[:, projection, 1], dx_beta, color=color_doss[projection-1],
-                               label=labels[projection-1], linestyle='--', linewidth=linewidth)
+                                linestyle='--', linewidth=linewidth)
                 else:
                     ax[1].plot(doss.doss[:, projection, 0], dx_alpha, color=color_doss[0],
                                linestyle='-', linewidth=linewidth)
