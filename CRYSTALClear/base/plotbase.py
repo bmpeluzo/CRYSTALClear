@@ -1114,8 +1114,8 @@ def plot_cry_es(bands, doss, k_labels, color_bd, color_doss, fermi, energy_range
         doss.doss[:, :, 1] = doss.doss[:, :, 1] * spin_idx
 
     # Definition and creation of the figure and the axes
-    fig, ax = plt.subplots(nrows=1, ncols=2, gridspec_kw={'width_ratios': [2, 1]},
-                           sharex=False, sharey=True, figsize=figsize)
+    fig, ax = plt.subplots(nrows=1, ncols=2, gridspec_kw={'width_ratios': [1.5, 1]},
+                           sharex=False, sharey=True, figsize=figsize, dpi=300, layout='tight')
     if title != None:
         fig.suptitle(title)
 
@@ -1307,6 +1307,6 @@ def plot_cry_es(bands, doss, k_labels, color_bd, color_doss, fermi, energy_range
 
     plt.ylim(ymin, ymax)
     if legend:
-        plt.legend()
+        plt.legend(loc=0)
 
     return fig, ax
