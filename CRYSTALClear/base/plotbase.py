@@ -1010,7 +1010,7 @@ def plot_cry_doss(doss, color, fermi, overlap, labels, figsize, linestl,
 
 
 def plot_cry_es(bands, doss, k_labels, color_bd, color_doss, fermi, energy_range, linestl_bd,
-                linestl_doss, linewidth, prj, figsize, labels, dos_range, title, dos_beta, legend):
+                linestl_doss, linewidth, prj, figsize, labels, dos_range, title, dos_beta, legend, bandgap):
     """
     The base function to plot electron / phonon band structure + DOS
 
@@ -1144,6 +1144,20 @@ def plot_cry_es(bands, doss, k_labels, color_bd, color_doss, fermi, energy_range
     count2 = 0
 
     # band plot
+        #get lumo and bandgap
+    if bandgap == True:
+        for i in range(no_bands):
+            if bands.spin == 1:
+                if np.min(pltband[i, :]) > 0:
+                    lumo = np.min(pltband[i,:])
+                    k_lumo = np.where(pltband[i, :] == lumo)[0][0]
+                    break
+            elif bands.spin == 2:
+                if np.min(pltband[i, :, :]) > 0:
+                    lumo = np.min(pltband[i, :, :])
+                    k_lumo = np.where(pltband[i, :, :] == lumo)[0][0]
+                    break
+
     for i in range(no_bands):
         if bands.spin == 1:
             ax[0].plot(dx_bd, pltband[i, :], color=color_bd,
@@ -1161,6 +1175,10 @@ def plot_cry_es(bands, doss, k_labels, color_bd, color_doss, fermi, energy_range
                 ax[0].plot(dx_bd, pltband[i, :, 1], color=color_bd,
                            linestyle='--', linewidth=linewidth)
         count1 += 1
+
+    ax[0].vlines(x=dx_bd[k_lumo], ymin=0, ymax=lumo, color='#28ABCA',linewidth=2.)
+    ax[0].text(x=dx_bd[k_lumo]*1.025,y=lumo/2,s='%.3f eV'%lumo,color='black')
+    
     if legend:
         ax[0].legend()
 
