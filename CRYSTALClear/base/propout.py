@@ -225,13 +225,14 @@ class DOSBASE():
         # Read the doss and store them into a numpy array
         for i, line in enumerate(data[first_energy:first_energy + n_energy]):
             doss[i, :n_proj+1, 0] = np.array([float(n) for n in line.split()])
-
+        
         if spin == 2:
             # line where the first beta energy is. Written this way to help identify
             first_energy_beta = first_energy + n_energy + 3
             for i, line in enumerate(data[first_energy_beta:-1]):
                 doss[i, :n_proj+1, 1] = np.array([float(n)
                                                  for n in line.split()])
+            print(doss)
 
         # Convert all the energy to eV / THz
         if is_electron == True:
